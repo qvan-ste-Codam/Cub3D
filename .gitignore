@@ -50,3 +50,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# VSVode
+.vscode
+
+# Program files
+cub3D
+*.cub
