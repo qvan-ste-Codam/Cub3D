@@ -17,4 +17,10 @@ jobs:
         run: python3 -m pip install norminette
         
       - name: Running norminette
-        run: norminette src include libft
+        run: norminette src include libs/libft
+
+      - name: Installing dependicies
+        run: sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
+
+      - name: Compiling binary
+        run: make
