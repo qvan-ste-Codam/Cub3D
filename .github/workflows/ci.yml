@@ -19,7 +19,7 @@ jobs:
       - name: Running norminette
         run: norminette src include libs/libft
 
-      - name: Installing dependencies
+      - name: Installing MLX42 dependencies
         run: sudo apt install build-essential libx11-dev libglfw3-dev libglfw3 xorg-dev
 
       - name: Compiling binary
