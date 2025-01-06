@@ -3,7 +3,7 @@ ORANGE=\033[0;33m
 GREEN =\033[0;32m
 NO_COLOUR =\033[0m
 
-CFILES = $(wildcard src/*.c) 
+CFILES = $(wildcard src/*.c) $(wildcard src/parsing/*.c) 
 
 OFILES = $(CFILES:.c=.o)
 
@@ -17,7 +17,7 @@ LIBFT = $(LIBFT_FOLDER)/libft.a
 
 LFILES = $(LIBFT) $(MLX42)
 
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
 
 LDFLAGS = -ldl -lglfw -pthread -lm
 
