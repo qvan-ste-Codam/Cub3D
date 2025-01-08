@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/06 17:29:30 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/06 19:30:48 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/08 13:06:18 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ int	create_map(char *file, t_map_data *map_data)
 	close(map_fd);
 	free(map_vector.items);
 	if (!map_data -> map)
-		return (1);
+		return (0);
 	return (SUCCESS);
 }
