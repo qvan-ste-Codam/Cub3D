@@ -6,11 +6,10 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/06 16:12:48 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/15 17:22:44 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/15 21:49:45 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libs/libft/include/libft.h"
 #include "../include/cub3D.h"
 
 static int	init_game_data(t_game_data *game, char *map_file)

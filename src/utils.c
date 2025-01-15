@@ -6,12 +6,12 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/06 17:35:12 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/15 18:51:23 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/15 21:51:06 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libs/libft/include/libft.h"
 #include "../include/cub3D.h"
+#include "../libs/libft/include/libft.h"
 #include <stdlib.h>
 
 void	clean_exit(t_game_data game)
