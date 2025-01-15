@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/06 17:29:30 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/08 13:06:18 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/15 14:57:10 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,27 +57,28 @@ static char	**create_map_matrix(t_vector_ptr *map_vector)
 	return (map_matrix);
 }
 
-int	create_map(char *file, t_map_data *map_data)
+char	**create_map(char *map_file)
 {
 	int				map_fd;
 	t_vector_ptr	map_vector;
+	char			**map;
 
-	map_fd = open(file, O_RDONLY);
+	map_fd = open(map_file, O_RDONLY);
 	if (map_fd == -1)
 	{
 		perror("Cub3D");
-		return (1);
+		return (NULL);
 	}
 	if (create_map_vector(&map_vector, map_fd) == -1)
 	{
 		perror("Cub3D");
 		close(map_fd);
-		return (1);
+		return (NULL);
 	}
-	map_data -> map = create_map_matrix(&map_vector);
+	map = create_map_matrix(&map_vector);
 	close(map_fd);
 	free(map_vector.items);
-	if (!map_data -> map)
-		return (0);
-	return (SUCCESS);
+	if (!map)
+		return (NULL);
+	return (map);
 }
