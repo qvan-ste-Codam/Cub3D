@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/06 16:12:48 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/15 15:33:49 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/15 21:52:32 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static int	init_game_data(t_game_data *game, char *map_file)
 	game -> map = create_map(map_file);
 	if (!game -> map)
 		return (1);
-	game -> player = init_player(3, 3, -1, 0);
+	game -> player = init_player(3, 3);
 	if (!game -> player)
 		return (1);
-	game -> camera = init_camera();
+	game -> camera = init_camera(-1, 0);
 	if (!game -> camera)
 		return (1);
 	game -> display = init_display();
@@ -50,6 +50,7 @@ int	main(int argc, char **argv)
 		clean_exit(game);
 		return (1);
 	}
+	execute_game(&game);
 	clean_exit(game);
 	return (0);
 }

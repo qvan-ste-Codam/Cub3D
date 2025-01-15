@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/01/15 15:02:41 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/15 15:35:58 by qvan-ste      ########   odam.nl         */
+/*   Created: 2025/01/15 21:50:19 by qvan-ste      #+#    #+#                 */
+/*   Updated: 2025/01/15 21:50:22 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,15 @@ t_display	*init_display(void)
 	{
 		return (NULL);
 	}
+	display -> lines = malloc(display -> width * sizeof(t_line));
+	if (!display -> lines)
+	{
+		return (NULL);
+	}
 	return (display);
 }
 
-t_player	*init_player(int player_x, int player_y,
-	int view_dir_x, int view_dir_y)
+t_player	*init_player(int player_x, int player_y)
 {
 	t_player	*player;
 
@@ -65,12 +69,10 @@ t_player	*init_player(int player_x, int player_y,
 	}
 	player -> position[X] = player_x;
 	player -> position[Y] = player_y;
-	player -> view_dir[X] = view_dir_x;
-	player -> view_dir[Y] = view_dir_y;
 	return (player);
 }
 
-t_camera	*init_camera(void)
+t_camera	*init_camera(int view_dir_x, int view_dir_y)
 {
 	t_camera	*camera;
 
@@ -81,5 +83,7 @@ t_camera	*init_camera(void)
 	}
 	camera -> plane[X] = 0;
 	camera -> plane[Y] = 0.66;
+	camera -> view_dir[X] = view_dir_x;
+	camera -> view_dir[Y] = view_dir_y;
 	return (camera);
 }
