@@ -6,13 +6,12 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 15:56:19 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/15 21:32:04 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/15 21:52:00 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/MLX42/include/MLX42/MLX42.h"
 #include "../include/cub3D.h"
-#include <stdio.h>
 
 void	cast_ray(t_game_data *game)
 {
