@@ -3,7 +3,7 @@ ORANGE=\033[0;33m
 GREEN =\033[0;32m
 NO_COLOUR =\033[0m
 
-CFILES = $(wildcard src/*.c) $(wildcard src/parsing/*.c) 
+CFILES = $(wildcard src/*.c) $(wildcard src/parsing/*.c) $(wildcard src/render/*.c)
 
 OFILES = $(CFILES:.c=.o)
 
@@ -13,7 +13,7 @@ MLX42_FOLDER = libs/MLX42
 
 MLX42 = $(MLX42_FOLDER)/build/libmlx42.a
 
-LIBFT = $(LIBFT_FOLDER)/libft.a 
+LIBFT = $(LIBFT_FOLDER)/libft.a
 
 LFILES = $(LIBFT) $(MLX42)
 
@@ -23,13 +23,13 @@ LDFLAGS = -ldl -lglfw -pthread -lm
 
 NAME = cub3D
 
-all: $(NAME)
+all:  $(NAME)
 
 .c.o:
 	@echo "$(ORANGE)[$(NAME)] Compiling $<$(NO_COLOUR)"
 	@$(CC) -c $(CFLAGS) $< -o $@
 
-$(NAME): $(LFILES) $(OFILES) 
+$(NAME): $(LFILES) $(OFILES)
 	@$(CC) $(CFLAGS) $(LDFLAGS) $(OFILES) $(LFILES) -o $(NAME)
 	@echo "$(GREEN)[$(NAME)] Compiling finished$(NO_COLOUR)"
 
