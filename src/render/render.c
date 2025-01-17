@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 18:35:28 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/15 21:32:12 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/17 19:28:56 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,49 @@
 #define BLACK 0x0000FF
 #define WHITE 0xFFFFFFFF
 
-// static void	render_line_part(
-// 	mlx_image_t *img, int draw_start, int draw_end, int x, int colour)
-// {
-// 	while (draw_start < draw_end)
-// 	{
-// 		mlx_put_pixel(img, x, draw_start, colour);
-// 		draw_start++;
-// 	}
-// }
+// TODO:
+// - Make norm proof reusuable render function
+// - Render by image instead of per pixel
+// - Use textures instead of colours
 
-// void	render_line(mlx_image_t *img, t_line *line, int height)
-// {
-// 	int	draw_start;
-// 	int	draw_end;
+static void	render_ceiling(
+	mlx_image_t *img, int draw_start, int draw_end, int x)
+{
+	while (draw_start < draw_end)
+	{
+		mlx_put_pixel(img, x, draw_start, BLACK);
+		draw_start++;
+	}
+}
 
-// 	draw_start = line -> draw_start;
-// 	draw_end = line -> draw_end;
-// 	render_line_part(img, 0, draw_start, line -> x_position, BLACK);
-// 	render_line_part(img, draw_start, draw_end, line -> x_position, BLUE);
-// 	render_line_part(img, draw_end, height, line -> x_position, WHITE);
-// }
+static void	render_floor(
+	mlx_image_t *img, int draw_start, int draw_end, int x)
+{
+	while (draw_start < draw_end)
+	{
+		mlx_put_pixel(img, x, draw_start, WHITE);
+		draw_start++;
+	}
+}
+
+static void	render_wall(
+	mlx_image_t *img, int draw_start, int draw_end, int x)
+{
+	while (draw_start < draw_end)
+	{
+		mlx_put_pixel(img, x, draw_start, BLUE);
+		draw_start++;
+	}
+}
+
+void	render_line(mlx_image_t *img, t_line *line, int height)
+{
+	int	draw_start;
+	int	draw_end;
+
+	draw_start = line -> render_start;
+	draw_end = line -> render_end;
+	render_ceiling(img, 0, draw_end, line->x_pos);
+	render_wall(img, draw_start, draw_end, line->x_pos);
+	render_floor(img, draw_end, height, line->x_pos);
+}

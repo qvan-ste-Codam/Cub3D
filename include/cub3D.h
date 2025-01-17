@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/06 17:18:48 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/15 21:48:17 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/17 17:41:58 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,43 @@
 # define SUCCESS 0
 
 // Structs
+typedef struct s_ray
+{
+	int			map_pos_x;
+	int			map_pos_y;
+	double		dir_x;
+	double		dir_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		step_x;
+	double		step_y;
+	double		wall_dist;
+}	t_ray;
 
 typedef struct s_line
 {
-	double		ray_direction[2];
-	double		delta_distance[2];
-	double		side_distance[2];
-	double		wall_distance;
-	int			position[2];
-	int			step[2];
-	int			draw_start;
-	int			draw_end;
-	int			x_position;
+	int			render_start;
+	int			render_end;
+	int			x_pos;
+	int			side;
+	int			wall_x;
+	t_ray		*ray;
 }	t_line;
 
 typedef struct s_player
 {
-	double	position[2];
+	double		pos_x;
+	double		pos_y;
 }	t_player;
 
 typedef struct s_camera
 {
-	double	plane[2];
-	double	view_dir[2];
+	double		plane_x;
+	double		plane_y;
+	double		view_dir_x;
+	double		view_dir_y;
 }	t_camera;
 
 typedef struct s_display
@@ -50,23 +64,31 @@ typedef struct s_display
 	mlx_image_t	*screen;
 }	t_display;
 
-typedef struct s_game_data
+typedef struct s_data
 {
 	char		**map;
 	t_player	*player;
 	t_camera	*camera;
 	t_display	*display;
-}	t_game_data;
+}	t_data;
 
 // Functions
-int			execute_game(t_game_data *game);
+// Engine
+int			execute_game(t_data *data);
+void		handle_input(mlx_key_data_t keydata, void *param);
+
+// Input
+void		move_forward(t_data *data);
+void		move_backwards(t_data *data);
+void		move_left(t_data *data);
+void		move_right(t_data *data);
 
 // Parsing
 char		**create_map(char *map_file);
 
 // Utils
 int			check_extension(char *arg);
-void		clean_exit(t_game_data game);
+void		clean_exit(t_data data);
 
 // Init
 t_player	*init_player(int player_x, int player_y);
@@ -75,7 +97,7 @@ t_display	*init_display(void);
 
 // Render
 void		render_line(mlx_image_t *img, t_line *line, int height);
-void		calculate_line(
-				t_game_data *game, t_line *line, double camera_x, int height);
+void		calculate_line(t_data *data, t_line *line);
+void		calculate_line_distance(t_ray *ray, t_player *player);
 
 #endif
