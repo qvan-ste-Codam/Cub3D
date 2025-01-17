@@ -3,7 +3,7 @@ ORANGE=\033[0;33m
 GREEN =\033[0;32m
 NO_COLOUR =\033[0m
 
-CFILES = $(wildcard src/*.c) $(wildcard src/parsing/*.c) $(wildcard src/render/*.c)
+CFILES = $(wildcard src/*.c) $(wildcard src/parsing/*.c) $(wildcard src/render/*.c) $(wildcard src/engine/*.c) $(wildcard src/engine/input/*.c)
 
 OFILES = $(CFILES:.c=.o)
 

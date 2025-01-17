@@ -6,19 +6,19 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/06 16:12:48 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/15 21:52:32 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/17 17:23:52 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/libft/include/libft.h"
 #include "../include/cub3D.h"
 
-static int	init_game_data(t_game_data *game, char *map_file)
+static int	init_game_data(t_data *game, char *map_file)
 {
 	game -> map = create_map(map_file);
 	if (!game -> map)
 		return (1);
-	game -> player = init_player(3, 3);
+	game -> player = init_player(3, 4);
 	if (!game -> player)
 		return (1);
 	game -> camera = init_camera(-1, 0);
@@ -32,7 +32,7 @@ static int	init_game_data(t_game_data *game, char *map_file)
 
 int	main(int argc, char **argv)
 {
-	t_game_data			game;
+	t_data			game;
 
 	if (argc != 2)
 	{

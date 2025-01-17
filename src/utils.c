@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/06 17:35:12 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/15 21:51:06 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/17 17:23:52 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,27 @@
 #include "../libs/libft/include/libft.h"
 #include <stdlib.h>
 
-void	clean_exit(t_game_data game)
+static void	free_lines(t_display *display)
+{
+	int		i;
+	t_line	*lines;
+	t_ray	*ray;
+
+	i = 0;
+	lines = display -> lines;
+	while (i < display->width)
+	{
+		ray = lines[i].ray;
+		if (ray)
+		{
+			free(ray);
+		}
+		i++;
+	}
+	free(lines);
+}
+
+void	clean_exit(t_data game)
 {
 	if (game.map)
 		ft_free_matrix(game.map);
@@ -26,7 +46,7 @@ void	clean_exit(t_game_data game)
 	{
 		if (game.display->lines)
 		{
-			free (game.display->lines);
+			free_lines(game.display);
 		}
 		free(game.display);
 	}

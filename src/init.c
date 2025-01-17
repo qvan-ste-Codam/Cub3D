@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 21:50:19 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/15 21:50:22 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/17 17:50:35 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,35 @@ static int	get_resolution(t_display *display)
 	{
 		return (-1);
 	}
-	mlx_get_monitor_size(0, &display -> width, &display -> height);
+	mlx_get_monitor_size(0, &display->width, &display->height);
 	mlx_terminate(mlx);
 	mlx_set_setting(MLX_HEADLESS, false);
 	return (SUCCESS);
+}
+
+static t_line	*init_lines(int width)
+{
+	int		i;
+	t_line	*lines;
+	t_ray	*ray;
+
+	i = 0;
+	lines = malloc(width * sizeof(t_line));
+	if (!lines)
+	{
+		return (NULL);
+	}
+	while (i < width)
+	{
+		ray = malloc(sizeof(t_ray));
+		if (!ray)
+		{
+			return (NULL);
+		}
+		lines[i].ray = ray;
+		i++;
+	}
+	return (lines);
 }
 
 t_display	*init_display(void)
@@ -44,13 +69,13 @@ t_display	*init_display(void)
 	{
 		return (NULL);
 	}
-	display -> renderer = mlx_init(display -> width,
-			display -> height, "Cub3D", false);
+	display->renderer = mlx_init(display->width,
+			display->height, "Cub3D", false);
 	if (!display -> renderer)
 	{
 		return (NULL);
 	}
-	display -> lines = malloc(display -> width * sizeof(t_line));
+	display->lines = init_lines(display->width);
 	if (!display -> lines)
 	{
 		return (NULL);
@@ -67,12 +92,12 @@ t_player	*init_player(int player_x, int player_y)
 	{
 		return (NULL);
 	}
-	player -> position[X] = player_x;
-	player -> position[Y] = player_y;
+	player->pos_x = player_x;
+	player->pos_y = player_y;
 	return (player);
 }
 
-t_camera	*init_camera(int view_dir_x, int view_dir_y)
+t_camera	*init_camera(int view_direction_x, int view_direction_y)
 {
 	t_camera	*camera;
 
@@ -81,9 +106,9 @@ t_camera	*init_camera(int view_dir_x, int view_dir_y)
 	{
 		return (NULL);
 	}
-	camera -> plane[X] = 0;
-	camera -> plane[Y] = 0.66;
-	camera -> view_dir[X] = view_dir_x;
-	camera -> view_dir[Y] = view_dir_y;
+	camera->plane_x = 0;
+	camera->plane_y = 0.66;
+	camera->view_dir_x = view_direction_x;
+	camera->view_dir_y = view_direction_y;
 	return (camera);
 }
