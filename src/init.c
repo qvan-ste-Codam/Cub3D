@@ -6,11 +6,12 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 21:50:19 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/17 17:50:35 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/19 20:24:56 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
+#include "../libs/libft/include/libft.h"
 #include <stdlib.h>
 #define X 0
 #define Y 1
@@ -38,19 +39,21 @@ static t_line	*init_lines(int width)
 	t_ray	*ray;
 
 	i = 0;
-	lines = malloc(width * sizeof(t_line));
+	lines = ft_calloc(width, sizeof(t_line));
 	if (!lines)
 	{
 		return (NULL);
 	}
 	while (i < width)
 	{
-		ray = malloc(sizeof(t_ray));
+		ray = ft_calloc(1, sizeof(t_ray));
 		if (!ray)
 		{
 			return (NULL);
 		}
 		lines[i].ray = ray;
+		lines[i].screen_pos_x = i;
+		lines[i].ray->camera_x = 2 * i / (double)width - 1;
 		i++;
 	}
 	return (lines);
@@ -65,6 +68,7 @@ t_display	*init_display(void)
 	{
 		return (NULL);
 	}
+	ft_bzero(display, sizeof(t_display));
 	if (get_resolution(display) != SUCCESS)
 	{
 		return (NULL);
@@ -80,6 +84,7 @@ t_display	*init_display(void)
 	{
 		return (NULL);
 	}
+	display->rerender = true;
 	return (display);
 }
 
