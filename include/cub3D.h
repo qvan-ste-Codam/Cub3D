@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/06 17:18:48 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/17 17:41:58 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/19 21:44:32 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,27 @@
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # define SUCCESS 0
 
+// Enums
+enum e_direction
+{
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST
+};
+
+enum e_side
+{
+	VERTICAL,
+	HORIZONTAL,
+};
+
 // Structs
 typedef struct s_ray
 {
 	int			map_pos_x;
 	int			map_pos_y;
+	int			side;
 	double		dir_x;
 	double		dir_y;
 	double		delta_dist_x;
@@ -29,15 +45,16 @@ typedef struct s_ray
 	double		step_x;
 	double		step_y;
 	double		wall_dist;
+	double		camera_x;
 }	t_ray;
 
 typedef struct s_line
 {
 	int			render_start;
 	int			render_end;
-	int			x_pos;
-	int			side;
-	int			wall_x;
+	int			screen_pos_x;
+	double		texture_pos_x;
+	int			dir;
 	t_ray		*ray;
 }	t_line;
 
@@ -59,9 +76,10 @@ typedef struct s_display
 {
 	int			width;
 	int			height;
+	bool		rerender;
 	t_line		*lines;
 	mlx_t		*renderer;
-	mlx_image_t	*screen;
+	mlx_image_t	*frame;
 }	t_display;
 
 typedef struct s_data
@@ -74,14 +92,15 @@ typedef struct s_data
 
 // Functions
 // Engine
-int			execute_game(t_data *data);
-void		handle_input(mlx_key_data_t keydata, void *param);
+void		game_loop(void *param);
 
 // Input
-void		move_forward(t_data *data);
-void		move_backwards(t_data *data);
-void		move_left(t_data *data);
-void		move_right(t_data *data);
+void		handle_input(t_data *data);
+void		handle_exit(mlx_key_data_t keydata, void *param);
+void		handle_move_forward(t_data *data);
+void		handle_move_backwards(t_data *data);
+void		handle_move_left(t_data *data);
+void		handle_move_right(t_data *data);
 
 // Parsing
 char		**create_map(char *map_file);
@@ -96,8 +115,9 @@ t_camera	*init_camera(int view_dir_x, int view_dir_y);
 t_display	*init_display(void);
 
 // Render
-void		render_line(mlx_image_t *img, t_line *line, int height);
-void		calculate_line(t_data *data, t_line *line);
-void		calculate_line_distance(t_ray *ray, t_player *player);
+int			draw_frame(t_data *data);
+void		render_line(t_data *data, t_line *line);
+void		cast_ray(
+				t_ray *ray, t_player *player, t_camera *camera, char **map);
 
 #endif

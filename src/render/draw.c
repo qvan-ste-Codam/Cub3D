@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   render.c                                           :+:    :+:            */
+/*   draw.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 18:35:28 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/17 19:28:56 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/19 20:26:19 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,41 @@ static void	render_wall(
 	}
 }
 
-void	render_line(mlx_image_t *img, t_line *line, int height)
+void	draw_line(mlx_image_t *img, t_line *line, int height)
 {
 	int	draw_start;
 	int	draw_end;
 
 	draw_start = line -> render_start;
 	draw_end = line -> render_end;
-	render_ceiling(img, 0, draw_end, line->x_pos);
-	render_wall(img, draw_start, draw_end, line->x_pos);
-	render_floor(img, draw_end, height, line->x_pos);
+	render_ceiling(img, 0, draw_end, line->screen_pos_x);
+	render_wall(img, draw_start, draw_end, line->screen_pos_x);
+	render_floor(img, draw_end, height, line->screen_pos_x);
+}
+
+int	draw_frame(t_data *data)
+{
+	int			i;
+	mlx_image_t	*frame;
+	t_display	*display;
+
+	i = 0;
+	display = data -> display;
+	frame = mlx_new_image(display->renderer, display->width, display->height);
+	if (!frame)
+	{
+		return (-1);
+	}
+	while (i < display -> width)
+	{
+		draw_line(frame, &display->lines[i], display->height);
+		i++;
+	}
+	if (display->frame)
+	{
+		mlx_delete_image(display->renderer, display->frame);
+	}
+	mlx_image_to_window(display->renderer, frame, 0, 0);
+	display->frame = frame;
+	return (0);
 }
