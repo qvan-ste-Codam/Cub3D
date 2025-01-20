@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   input.c                                            :+:    :+:            */
+/*   handle_input.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/17 16:51:42 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/19 20:37:35 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/20 16:24:02 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libs/MLX42/include/MLX42/MLX42.h"
 #include "../../include/cub3D.h"
 #include <math.h>
-#define ROTATION_SPEED 0.1
 
 static void	rotate_camera(t_camera *camera, t_data *data, double rotation_val)
 {
@@ -30,7 +29,7 @@ static void	rotate_camera(t_camera *camera, t_data *data, double rotation_val)
 		- camera->plane_y * sin(rotation_val);
 	camera->plane_y = prev_plane_x * sin(rotation_val)
 		+ camera->plane_y * cos(rotation_val);
-	data -> display -> rerender = true;
+	data -> display -> should_rerender = true;
 }
 
 void	handle_exit(mlx_key_data_t keydata, void *param)

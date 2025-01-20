@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   calculations.c                                     :+:    :+:            */
+/*   calculate_line.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 19:16:00 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/19 21:55:39 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/20 22:38:30 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,21 @@ static void	compute_line_properties(
 
 	ray = line->ray;
 	line_height = (int)(height / ray->wall_dist);
-	line->render_start = -line_height / 2 + height / 2;
-	if (line->render_start < 0)
+	line->draw_start = -line_height / 2 + height / 2;
+	if (line->draw_start < 0)
 	{
-		line->render_start = 0;
+		line->draw_start = 0;
 	}
-	line->render_end = line_height / 2 + height / 2;
-	if (line->render_end >= height)
+	line->draw_end = line_height / 2 + height / 2;
+	if (line->draw_end >= height)
 	{
-		line->render_end = height - 1;
+		line->draw_end = height - 1;
 	}
 	if (ray->side == VERTICAL)
-		line->texture_pos_x = player->pos_x + ray->wall_dist * ray->dir_y;
+		line->wall_hit_x = player->pos_x + ray->wall_dist * ray->dir_y;
 	else
-		line->texture_pos_x = player->pos_x + ray->wall_dist * ray->dir_x;
-	line->texture_pos_x -= floor(line -> texture_pos_x);
+		line->wall_hit_x = player->pos_x + ray->wall_dist * ray->dir_x;
+	line->wall_hit_x = line->wall_hit_x - floor(line->wall_hit_x);
 }
 
 void	render_line(t_data *data, t_line *line)
