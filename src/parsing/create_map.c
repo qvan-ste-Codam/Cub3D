@@ -6,13 +6,15 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/06 17:29:30 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/15 14:57:10 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/20 17:43:51 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../../libs/libft/include/libft.h"
 #include "../../include/cub3D.h"
 
@@ -22,22 +24,22 @@ static int	create_map_vector(t_vector_ptr *map_vector, int map_fd)
 
 	buf = get_next_line(map_fd);
 	if (!buf)
-		return (-1);
-	if (ft_vecinit_ptr(map_vector, 10, sizeof(char *)) == -1)
-		return (-1);
+		return (FAILURE);
+	if (ft_vecinit_ptr(map_vector, 10, sizeof(char *)) != SUCCESS)
+		return (FAILURE);
 	while (buf)
 	{
 		if (buf[ft_strlen(buf) - 1] == '\n')
 			buf[ft_strlen(buf) - 1] = '\0';
-		if (ft_vecappend_ptr(map_vector, buf) == -1)
+		if (ft_vecappend_ptr(map_vector, buf) != SUCCESS)
 		{
 			free(buf);
 			ft_vecdelete_ptr(map_vector);
-			return (-1);
+			return (FAILURE);
 		}
 		buf = get_next_line(map_fd);
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 static char	**create_map_matrix(t_vector_ptr *map_vector)
@@ -66,12 +68,11 @@ char	**create_map(char *map_file)
 	map_fd = open(map_file, O_RDONLY);
 	if (map_fd == -1)
 	{
-		perror("Cub3D");
+		ft_printf_fd(2, "Error\n%s", strerror(errno));
 		return (NULL);
 	}
-	if (create_map_vector(&map_vector, map_fd) == -1)
+	if (create_map_vector(&map_vector, map_fd) == FAILURE)
 	{
-		perror("Cub3D");
 		close(map_fd);
 		return (NULL);
 	}

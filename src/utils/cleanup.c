@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
+/*   cleanup.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/06 17:35:12 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/17 17:23:52 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 16:15:48 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
-#include "../libs/libft/include/libft.h"
+#include "../../include/cub3D.h"
+#include "../../libs/libft/include/libft.h"
 #include <stdlib.h>
 
 static void	free_lines(t_display *display)
 {
-	int		i;
-	t_line	*lines;
-	t_ray	*ray;
+	int				i;
+	t_line			*lines;
+	t_ray			*ray;
+	t_texture_props	*texture_props;
 
 	i = 0;
 	lines = display -> lines;
@@ -29,12 +30,17 @@ static void	free_lines(t_display *display)
 		{
 			free(ray);
 		}
+		texture_props = lines[i].texture_props;
+		if (texture_props)
+		{
+			free (texture_props);
+		}
 		i++;
 	}
 	free(lines);
 }
 
-void	clean_exit(t_data game)
+void	free_data(t_data game)
 {
 	if (game.map)
 		ft_free_matrix(game.map);
@@ -50,12 +56,4 @@ void	clean_exit(t_data game)
 		}
 		free(game.display);
 	}
-}
-
-int	check_extension(char *arg)
-{
-	char	*last_four_chars;
-
-	last_four_chars = &arg[ft_strlen(arg) - 4];
-	return (ft_strcmp(".cub", last_four_chars));
 }

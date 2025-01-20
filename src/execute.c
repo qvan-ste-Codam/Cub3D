@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   loop.c                                             :+:    :+:            */
+/*   execute.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 15:56:19 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/19 21:53:45 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/20 22:38:19 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,27 @@ static void	render_frame(t_data *data)
 	}
 }
 
-void	game_loop(void *param)
+static void	game_loop(void *param)
 {
 	t_data	*data;
 
 	data = param;
 	handle_input(data);
-	if (data->display->rerender == true)
+	if (data->display->should_rerender == true)
 	{
 		render_frame(data);
-		draw_frame(data);
-		data->display->rerender = false;
+		draw_frame(data->display);
+		data->display->should_rerender = false;
 	}
-	printf("%f\n", 1 / data->display->renderer->delta_time);
+}
+
+void	execute(t_data *data)
+{
+	mlx_t	*renderer;
+
+	renderer = data->display->renderer;
+	mlx_key_hook(renderer, &handle_exit, data);
+	mlx_loop_hook(renderer, &game_loop, data);
+	mlx_loop(renderer);
+	mlx_terminate(renderer);
 }

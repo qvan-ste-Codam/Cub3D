@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rays.c                                             :+:    :+:            */
+/*   cast_ray.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/17 16:23:27 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/19 20:26:06 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 12:49:50 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	perform_dda(t_ray *ray, char **map)
 	hit_wall = false;
 	while (hit_wall == false)
 	{
-		if (ray -> side_dist_x < ray -> side_dist_y)
+		if (ray->side_dist_x < ray->side_dist_y)
 		{
 			ray->side_dist_x += ray->delta_dist_x;
 			ray->map_pos_x += ray->step_x;
