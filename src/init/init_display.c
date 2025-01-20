@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   init.c                                             :+:    :+:            */
+/*   init_display.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/01/15 21:50:19 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/19 20:24:56 by qvan-ste      ########   odam.nl         */
+/*   Created: 2025/01/20 15:03:15 by qvan-ste      #+#    #+#                 */
+/*   Updated: 2025/01/20 22:24:06 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
-#include "../libs/libft/include/libft.h"
+#include "../../include/cub3D.h"
+#include "../../libs/libft/include/libft.h"
 #include <stdlib.h>
-#define X 0
-#define Y 1
 
 static int	get_resolution(t_display *display)
 {
@@ -24,11 +22,26 @@ static int	get_resolution(t_display *display)
 	mlx = mlx_init(1, 1, "", false);
 	if (!mlx)
 	{
-		return (-1);
+		return (FAILURE);
 	}
 	mlx_get_monitor_size(0, &display->width, &display->height);
 	mlx_terminate(mlx);
 	mlx_set_setting(MLX_HEADLESS, false);
+	return (SUCCESS);
+}
+
+static int	init_renderer(t_display *display)
+{
+	if (get_resolution(display) != SUCCESS)
+	{
+		return (FAILURE);
+	}
+	display->renderer = mlx_init(display->width,
+			display->height, "Cub3D", false);
+	if (!display -> renderer)
+	{
+		return (FAILURE);
+	}
 	return (SUCCESS);
 }
 
@@ -59,61 +72,50 @@ static t_line	*init_lines(int width)
 	return (lines);
 }
 
-t_display	*init_display(void)
+static int	init_textures(t_display *display, char **texture_paths)
+{
+	size_t			i;
+	mlx_texture_t	*texture;
+
+	i = 0;
+	while (texture_paths[i])
+	{
+		texture = mlx_load_png(texture_paths[i]);
+		if (!texture)
+		{
+			return (FAILURE);
+		}
+		display->textures[i] = mlx_texture_to_image(display->renderer, texture);
+		mlx_delete_texture(texture);
+		if (!display->textures[i])
+		{
+			return (FAILURE);
+		}
+		i++;
+	}
+	return (SUCCESS);
+}
+
+t_display	*init_display(
+		char **texture_paths, int *rgb_floor, int *rgb_ceiling)
 {
 	t_display	*display;
 
 	display = malloc(sizeof(t_display));
 	if (!display)
-	{
 		return (NULL);
-	}
 	ft_bzero(display, sizeof(t_display));
-	if (get_resolution(display) != SUCCESS)
-	{
+	if (init_renderer(display) != SUCCESS)
 		return (NULL);
-	}
-	display->renderer = mlx_init(display->width,
-			display->height, "Cub3D", false);
-	if (!display -> renderer)
-	{
+	if (init_textures(display, texture_paths) != SUCCESS)
 		return (NULL);
-	}
 	display->lines = init_lines(display->width);
 	if (!display -> lines)
-	{
 		return (NULL);
-	}
-	display->rerender = true;
+	display->floor_color
+		= rgba_to_int(rgb_floor[R], rgb_floor[G], rgb_floor[B], 255);
+	display->ceiling_color
+		= rgba_to_int(rgb_ceiling[R], rgb_ceiling[G], rgb_ceiling[B], 255);
+	display->should_rerender = true;
 	return (display);
-}
-
-t_player	*init_player(int player_x, int player_y)
-{
-	t_player	*player;
-
-	player = malloc(sizeof(t_player));
-	if (!player)
-	{
-		return (NULL);
-	}
-	player->pos_x = player_x;
-	player->pos_y = player_y;
-	return (player);
-}
-
-t_camera	*init_camera(int view_direction_x, int view_direction_y)
-{
-	t_camera	*camera;
-
-	camera = malloc(sizeof(t_camera));
-	if (!camera)
-	{
-		return (NULL);
-	}
-	camera->plane_x = 0;
-	camera->plane_y = 0.66;
-	camera->view_dir_x = view_direction_x;
-	camera->view_dir_y = view_direction_y;
-	return (camera);
 }
