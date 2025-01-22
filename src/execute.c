@@ -6,15 +6,14 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 15:56:19 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/20 22:38:19 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 16:51:12 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/MLX42/include/MLX42/MLX42.h"
 #include "../include/cub3D.h"
-#include <stdio.h>
 
-static void	render_frame(t_data *data)
+static void	compute_frame(t_data *data)
 {
 	int			i;
 	t_display	*display;
@@ -25,7 +24,7 @@ static void	render_frame(t_data *data)
 	while (i < display->width)
 	{
 		line = &data->display->lines[i];
-		render_line(data, line);
+		compute_line(data, line);
 		i++;
 	}
 }
@@ -38,8 +37,8 @@ static void	game_loop(void *param)
 	handle_input(data);
 	if (data->display->should_rerender == true)
 	{
-		render_frame(data);
-		draw_frame(data->display);
+		compute_frame(data);
+		render_frame(data->display);
 		data->display->should_rerender = false;
 	}
 }
