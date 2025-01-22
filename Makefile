@@ -56,10 +56,5 @@ fclean:  clean
 
 re: fclean all
 
-fast: CFLAGS += -Ofast
-fast: all
 
-debug: CFLAGS += -fsanitize=address -g
-debug: all
-
-.PHONY:  all clean fclean re fast debug .c.o
+.PHONY:  all clean fclean re .c.o
