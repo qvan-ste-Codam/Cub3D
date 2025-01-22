@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 15:56:19 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/22 16:47:23 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 16:51:12 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void	compute_frame(t_data *data)
 static void	game_loop(void *param)
 {
 	t_data	*data;
-	data = param;
 
+	data = param;
 	handle_input(data);
 	if (data->display->should_rerender == true)
 	{
