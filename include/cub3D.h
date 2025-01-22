@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/06 17:18:48 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/22 16:44:05 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 17:37:57 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 
 # define NUM_OF_TEXTURES 4
-# define MOVEMENT_SPEED 0.1
-# define ROTATION_SPEED 0.1
+# define GAME_SPEED 0.9
 
 // Enums
 enum e_direction
@@ -124,10 +123,10 @@ void		execute(t_data *data);
 // Input
 void		handle_input(t_data *data);
 void		handle_exit(mlx_key_data_t keydata, void *param);
-void		handle_move_forward(t_data *data);
-void		handle_move_backwards(t_data *data);
-void		handle_move_left(t_data *data);
-void		handle_move_right(t_data *data);
+void		handle_move_forward(t_data *data, double speed);
+void		handle_move_backwards(t_data *data, double speed);
+void		handle_move_left(t_data *data, double speed);
+void		handle_move_right(t_data *data, double speed);
 
 // Parsing
 char		**create_map(char *map_file);
