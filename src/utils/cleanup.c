@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/06 17:35:12 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/20 20:36:02 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 16:15:48 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 
 static void	free_lines(t_display *display)
 {
-	int		i;
-	t_line	*lines;
-	t_ray	*ray;
+	int				i;
+	t_line			*lines;
+	t_ray			*ray;
+	t_texture_props	*texture_props;
 
 	i = 0;
 	lines = display -> lines;
@@ -28,6 +29,11 @@ static void	free_lines(t_display *display)
 		if (ray)
 		{
 			free(ray);
+		}
+		texture_props = lines[i].texture_props;
+		if (texture_props)
+		{
+			free (texture_props);
 		}
 		i++;
 	}

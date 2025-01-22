@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/20 17:15:09 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/20 20:35:41 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 16:16:01 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	rgba_to_int(int r, int g, int b, int a)
 
 int	get_pixel_color(mlx_image_t *image, uint32_t x_pos, uint32_t y_pos)
 {
-	size_t	index;
+	int		index;
 	uint8_t	r;
 	uint8_t	g;
 	uint8_t	b;
@@ -30,7 +30,7 @@ int	get_pixel_color(mlx_image_t *image, uint32_t x_pos, uint32_t y_pos)
 	{
 		return (0);
 	}
-	index = (y_pos * image->width + x_pos) * sizeof(int32_t);
+	index = (y_pos * image->width + x_pos) * 4;
 	r = image->pixels[index];
 	g = image->pixels[index + 1];
 	b = image->pixels[index + 2];

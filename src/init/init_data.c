@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 21:50:19 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/20 17:49:46 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 15:08:34 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	init_data(t_data *game, char *map_file)
 		"textures/west.png",
 		NULL
 	};
-	static int	rgb_floor[3] = {0, 0, 0};
-	static int	rgb_ceiling[3] = {255, 255, 255};
+	static int	rgb_floor[3] = {3, 252, 177};
+	static int	rgb_ceiling[3] = {252, 3, 240};
 
 	game->map = create_map(map_file);
 	if (!game->map)

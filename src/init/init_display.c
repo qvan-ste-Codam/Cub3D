@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/20 15:03:15 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/20 22:24:06 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 16:14:14 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,27 +47,28 @@ static int	init_renderer(t_display *display)
 
 static t_line	*init_lines(int width)
 {
-	int		i;
-	t_line	*lines;
-	t_ray	*ray;
+	int				x;
+	t_line			*lines;
+	t_ray			*ray;
+	t_texture_props	*texture_props;
 
-	i = 0;
+	x = 0;
 	lines = ft_calloc(width, sizeof(t_line));
 	if (!lines)
-	{
 		return (NULL);
-	}
-	while (i < width)
+	while (x < width)
 	{
 		ray = ft_calloc(1, sizeof(t_ray));
 		if (!ray)
-		{
 			return (NULL);
-		}
-		lines[i].ray = ray;
-		lines[i].screen_pos_x = i;
-		lines[i].ray->camera_x = 2 * i / (double)width - 1;
-		i++;
+		texture_props = ft_calloc(1, sizeof(t_texture_props));
+		if (!texture_props)
+			return (NULL);
+		lines[x].ray = ray;
+		lines[x].texture_props = texture_props;
+		lines[x].screen_pos_x = x;
+		lines[x].ray->camera_x = 2 * x / (double)width - 1;
+		x++;
 	}
 	return (lines);
 }

@@ -6,40 +6,32 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 18:35:28 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/20 22:38:44 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 16:15:41 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libs/MLX42/include/MLX42/MLX42.h"
 #include "../../include/cub3D.h"
 
-// TODO:
-// - Render by image instead of per pixel
-// - Fix sticky vertical walls
-
-static void	draw_wall(
-	mlx_image_t *img, t_line *line, mlx_image_t *text)
+static void	draw_wall(mlx_image_t *screen, t_line *line,
+	t_texture_props *texture_props, int height)
 {
-	int				y;
-	int				wall_height;
-	unsigned int	x_pos;
-	unsigned int	y_pos;
+	int		texture_y;
+	double	texture_doub_y;
+	int		color;
+	int		screen_pos_y;
 
-	wall_height = line->draw_end - line->draw_start;
-	x_pos = (unsigned int)(line->wall_hit_x * (double)text->width);
-	if (line->dir == EAST || line->dir == WEST)
-		x_pos = text->width - x_pos - 1;
-	if (x_pos >= text->width)
-		x_pos = text->width - 1;
-	y = 0;
-	while (y < wall_height)
+	screen_pos_y = line->draw_start;
+	texture_doub_y = (int)(line->draw_start - height / 2 + line->height / 2)
+		* texture_props->step_size;
+	while (screen_pos_y < line->draw_end)
 	{
-		y_pos = (unsigned int)((y * text->height) / wall_height);
-		if (y_pos >= text->height)
-			y_pos = text->height - 1;
-		mlx_put_pixel(img, line->screen_pos_x,
-			line->draw_start + y, get_pixel_color(text, x_pos, y_pos));
-		y++;
+		texture_y = (int)texture_doub_y & (texture_props->texture->height - 1);
+		texture_doub_y += texture_props->step_size;
+		color = get_pixel_color(texture_props->texture,
+				texture_props->x_pos, texture_y);
+		mlx_put_pixel(screen, line->screen_pos_x, screen_pos_y, color);
+		screen_pos_y++;
 	}
 }
 
@@ -54,7 +46,7 @@ void	draw_line(t_display *display, t_line *line)
 			y, display->floor_color);
 		y++;
 	}
-	draw_wall(display->frame, line, display->textures[line->dir]);
+	draw_wall(display->frame, line, line->texture_props, display->height);
 	y = line->draw_end;
 	while (y < display->height)
 	{

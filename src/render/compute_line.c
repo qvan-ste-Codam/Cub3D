@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   calculate_line.c                                   :+:    :+:            */
+/*   compute_line.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 19:16:00 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/20 22:38:30 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 16:13:50 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 #include <math.h>
 
 static void	compute_wall_distance(
-	t_ray *ray, double player_position_x, double player_position_y)
+	t_ray *ray)
 {
 	if (ray->side == VERTICAL)
 	{
-		ray->wall_dist = (ray->map_pos_x - player_position_x
-				+ (1 - ray->step_x) / 2) / ray->dir_x;
+		ray->wall_dist = ray->side_dist_x - ray->delta_dist_x;
 	}
 	else
 	{
-		ray->wall_dist = (ray->map_pos_y - player_position_y
-				+ (1 - ray->step_y) / 2) / ray->dir_y;
+		ray->wall_dist = ray->side_dist_y - ray->delta_dist_y;
 	}
 }
 
@@ -47,34 +45,54 @@ static void	determine_wall_direction(t_line *line, t_ray *ray)
 }
 
 static void	compute_line_properties(
-	t_line *line, int height, t_player *player)
+	t_line *line, t_ray *ray, int height)
 {
-	int		line_height;
-	t_ray	*ray;
-
-	ray = line->ray;
-	line_height = (int)(height / ray->wall_dist);
-	line->draw_start = -line_height / 2 + height / 2;
+	line->height = (int)(height / ray->wall_dist);
+	line->draw_start = -line->height / 2 + height / 2;
 	if (line->draw_start < 0)
 	{
 		line->draw_start = 0;
 	}
-	line->draw_end = line_height / 2 + height / 2;
+	line->draw_end = line->height / 2 + height / 2;
 	if (line->draw_end >= height)
 	{
 		line->draw_end = height - 1;
 	}
+}
+
+static void	compute_texture_properties(
+	t_line *line, t_ray *ray, t_player *player, mlx_image_t **textures)
+{
+	int			texture_x_pos;
+	double		wall_hit_x;
+	mlx_image_t	*texture;
+
 	if (ray->side == VERTICAL)
-		line->wall_hit_x = player->pos_x + ray->wall_dist * ray->dir_y;
+	{
+		wall_hit_x = player->pos_y + ray->wall_dist * ray->dir_y;
+	}
 	else
-		line->wall_hit_x = player->pos_x + ray->wall_dist * ray->dir_x;
-	line->wall_hit_x = line->wall_hit_x - floor(line->wall_hit_x);
+	{
+		wall_hit_x = player->pos_x + ray->wall_dist * ray->dir_x;
+	}
+	wall_hit_x -= floor(wall_hit_x);
+	texture = textures[line->dir];
+	line->texture_props->texture = texture;
+	line->texture_props->step_size = 1.0 * texture->height / line->height;
+	texture_x_pos = wall_hit_x * texture->width;
+	if (line->dir == NORTH || line->dir == EAST)
+	{
+		texture_x_pos = texture->width - texture_x_pos - 1;
+	}
+	line->texture_props->x_pos = texture_x_pos;
 }
 
 void	render_line(t_data *data, t_line *line)
 {
 	cast_ray(line->ray, data->player, data->camera, data->map);
-	compute_wall_distance(line->ray, data->player->pos_x, data->player->pos_y);
+	compute_wall_distance(line->ray);
 	determine_wall_direction(line, line->ray);
-	compute_line_properties(line, data->display->height, data->player);
+	compute_line_properties(line, line->ray, data->display->height);
+	compute_texture_properties(line, line->ray,
+		data->player, data->display->textures);
 }

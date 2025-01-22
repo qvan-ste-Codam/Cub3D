@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/06 17:18:48 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/20 21:53:16 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 16:16:21 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,22 @@ typedef struct s_ray
 	double			camera_x;
 }	t_ray;
 
+typedef struct s_texture_props
+{
+	mlx_image_t		*texture;
+	double			step_size;
+	int				x_pos;
+}	t_texture_props;
+
 typedef struct s_line
 {
 	int				draw_start;
 	int				draw_end;
-	int				screen_pos_x;
-	int				wall_hit_x;
+	int				height;
 	int				dir;
+	int				screen_pos_x;
 	t_ray			*ray;
+	t_texture_props	*texture_props;
 }	t_line;
 
 typedef struct s_player
