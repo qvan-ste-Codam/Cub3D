@@ -6,13 +6,12 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 15:56:19 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/22 17:48:01 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 17:58:46 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libs/MLX42/include/MLX42/MLX42.h"
 #include "../include/cub3D.h"
-#include <stdio.h>
 
 static void	compute_frame(t_data *data)
 {
@@ -42,7 +41,6 @@ static void	game_loop(void *param)
 		render_frame(data->display);
 		data->display->should_rerender = false;
 	}
-	printf("%f\n", 1 / data->display->renderer->delta_time);
 }
 
 void	execute(t_data *data)
