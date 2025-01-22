@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   compute_render.c                                   :+:    :+:            */
+/*   compute_line.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 19:16:00 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/22 16:37:41 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 18:58:55 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ static void	compute_line_properties(
 }
 
 static void	compute_texture_properties(
-	t_line *line, t_ray *ray, t_player *player, mlx_image_t **textures)
+	t_line *line, t_ray *ray, t_player *player, mlx_texture_t **textures)
 {
-	int			texture_x_pos;
-	double		wall_hit_x;
-	mlx_image_t	*texture;
+	int				texture_x_pos;
+	double			wall_hit_x;
+	mlx_texture_t	*texture;
 
 	if (ray->side == VERTICAL)
 	{

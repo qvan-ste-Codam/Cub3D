@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/06 17:18:48 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/22 17:37:57 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 19:06:57 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 
 # define NUM_OF_TEXTURES 4
-# define GAME_SPEED 0.9
+# define GAME_SPEED 1.4
+# ifndef LIMIT_RESOLUTION
+#  define LIMIT_RESOLUTION false
+# endif
 
 // Enums
 enum e_direction
@@ -65,9 +68,9 @@ typedef struct s_ray
 
 typedef struct s_texture_props
 {
-	mlx_image_t		*texture;
-	double			step_size;
 	int				x_pos;
+	double			step_size;
+	mlx_texture_t	*texture;
 }	t_texture_props;
 
 typedef struct s_line
@@ -97,15 +100,15 @@ typedef struct s_camera
 
 typedef struct s_display
 {
-	bool			should_rerender;
-	t_line			*lines;
-	mlx_t			*renderer;
-	mlx_image_t		*frame;
-	mlx_image_t		*textures[NUM_OF_TEXTURES];
 	int				width;
 	int				height;
 	int				floor_color;
 	int				ceiling_color;
+	bool			should_rerender;
+	t_line			*lines;
+	mlx_t			*renderer;
+	mlx_image_t		*frame;
+	mlx_texture_t	*textures[NUM_OF_TEXTURES];
 }	t_display;
 
 typedef struct s_data
@@ -135,7 +138,8 @@ char		**create_map(char *map_file);
 int			validate_input(int argc, char **argv);
 void		free_data(t_data data);
 int			rgba_to_int(int r, int g, int b, int a);
-int			get_pixel_color(mlx_image_t *image, uint32_t x_pos, uint32_t y_pos);
+int			get_pixel_color(
+				mlx_texture_t *texture, uint32_t x_pos, uint32_t y_pos);
 
 // Init
 int			init_data(t_data *game, char *map_file);

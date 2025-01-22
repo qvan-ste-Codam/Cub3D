@@ -56,5 +56,7 @@ fclean:  clean
 
 re: fclean all
 
+fps: CFLAGS += -DLIMIT_RESOLUTION=true
+fps: re
 
-.PHONY:  all clean fclean re .c.o
+.PHONY:  all clean fclean re .c.o fps

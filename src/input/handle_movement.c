@@ -6,13 +6,14 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/17 17:19:48 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/22 17:47:44 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 19:06:43 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
 
-void	attempt_move_player(t_data *data, double new_pos_x, double new_pos_y)
+static void	attempt_move_player(
+	t_data *data, double new_pos_x, double new_pos_y)
 {
 	t_player	*player;
 

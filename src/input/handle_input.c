@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/17 16:51:42 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/22 17:13:22 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 19:09:48 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ void	handle_input(t_data *data)
 	speed = data->display->renderer->delta_time * GAME_SPEED;
 	if (mlx_is_key_down(data->display->renderer, MLX_KEY_LEFT))
 		rotate_camera(data->camera, data, 1 * speed);
-	else if (mlx_is_key_down(data->display->renderer, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(data->display->renderer, MLX_KEY_RIGHT))
 		rotate_camera(data->camera, data, -1 * speed);
-	else if (mlx_is_key_down(data->display->renderer, MLX_KEY_W))
+	if (mlx_is_key_down(data->display->renderer, MLX_KEY_W))
 		handle_move_forward(data, speed);
-	else if (mlx_is_key_down(data->display->renderer, MLX_KEY_S))
+	if (mlx_is_key_down(data->display->renderer, MLX_KEY_S))
 		handle_move_backwards(data, speed);
-	else if (mlx_is_key_down(data->display->renderer, MLX_KEY_A))
+	if (mlx_is_key_down(data->display->renderer, MLX_KEY_A))
 		handle_move_left(data, speed);
-	else if (mlx_is_key_down(data->display->renderer, MLX_KEY_D))
+	if (mlx_is_key_down(data->display->renderer, MLX_KEY_D))
 		handle_move_right(data, speed);
 }
