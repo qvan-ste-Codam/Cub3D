@@ -17,7 +17,7 @@ LIBFT = $(LIBFT_FOLDER)/libft.a
 
 LFILES = $(LIBFT) $(MLX42)
 
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra
 
 LDFLAGS = -ldl -lglfw -pthread -lm
 
@@ -56,4 +56,10 @@ fclean:  clean
 
 re: fclean all
 
-.PHONY:  all clean fclean re .c.o
+fast: CFLAGS += -Ofast
+fast: all
+
+debug: CFLAGS += -fsanitize=address -g
+debug: all
+
+.PHONY:  all clean fclean re fast debug .c.o

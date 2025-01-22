@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 18:35:28 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/22 16:38:09 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 17:23:51 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 static void	render_wall(mlx_image_t *screen, t_line *line,
 	t_texture_props *texture_props, int height)
 {
-	int		texture_y;
-	double	texture_doub_y;
 	int		color;
 	int		screen_pos_y;
+	int		texture_y;
+	double	texture_doub_y;
 
 	screen_pos_y = line->draw_start;
 	texture_doub_y = (int)(line->draw_start - height / 2 + line->height / 2)
