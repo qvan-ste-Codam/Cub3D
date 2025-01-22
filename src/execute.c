@@ -12,7 +12,6 @@
 
 #include "../libs/MLX42/include/MLX42/MLX42.h"
 #include "../include/cub3D.h"
-#include <stdio.h>
 
 static void	compute_frame(t_data *data)
 {
