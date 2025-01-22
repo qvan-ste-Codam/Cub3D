@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   compute_line.c                                     :+:    :+:            */
+/*   compute_render.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 19:16:00 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/22 16:13:50 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 16:37:41 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	compute_texture_properties(
 	line->texture_props->x_pos = texture_x_pos;
 }
 
-void	render_line(t_data *data, t_line *line)
+void	compute_line(t_data *data, t_line *line)
 {
 	cast_ray(line->ray, data->player, data->camera, data->map);
 	compute_wall_distance(line->ray);

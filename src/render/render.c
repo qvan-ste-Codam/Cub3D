@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   draw_frame.c                                       :+:    :+:            */
+/*   render.c                                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 18:35:28 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/22 16:15:41 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 16:38:09 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libs/MLX42/include/MLX42/MLX42.h"
 #include "../../include/cub3D.h"
 
-static void	draw_wall(mlx_image_t *screen, t_line *line,
+static void	render_wall(mlx_image_t *screen, t_line *line,
 	t_texture_props *texture_props, int height)
 {
 	int		texture_y;
@@ -35,7 +35,7 @@ static void	draw_wall(mlx_image_t *screen, t_line *line,
 	}
 }
 
-void	draw_line(t_display *display, t_line *line)
+static void	render_line(t_display *display, t_line *line)
 {
 	int	y;
 
@@ -46,7 +46,7 @@ void	draw_line(t_display *display, t_line *line)
 			y, display->floor_color);
 		y++;
 	}
-	draw_wall(display->frame, line, line->texture_props, display->height);
+	render_wall(display->frame, line, line->texture_props, display->height);
 	y = line->draw_end;
 	while (y < display->height)
 	{
@@ -56,7 +56,7 @@ void	draw_line(t_display *display, t_line *line)
 	}
 }
 
-int	create_new_frame(t_display *display)
+static int	create_new_frame(t_display *display)
 {
 	mlx_image_t	*frame;
 
@@ -70,7 +70,7 @@ int	create_new_frame(t_display *display)
 	return (SUCCESS);
 }
 
-int	draw_frame(t_display *display)
+int	render_frame(t_display *display)
 {
 	int	i;
 
@@ -81,7 +81,7 @@ int	draw_frame(t_display *display)
 	}
 	while (i < display -> width)
 	{
-		draw_line(display, &display->lines[i]);
+		render_line(display, &display->lines[i]);
 		i++;
 	}
 	mlx_image_to_window(display->renderer, display->frame, 0, 0);

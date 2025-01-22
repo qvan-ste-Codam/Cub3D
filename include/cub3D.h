@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/06 17:18:48 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/22 16:16:21 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 16:44:05 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,8 @@ t_display	*init_display(
 				char **texture_paths, int *rgb_floor, int *rgb_ceiling);
 
 // Render
-int			draw_frame(t_display *display);
-void		render_line(t_data *data, t_line *line);
+int			render_frame(t_display *display);
+void		compute_line(t_data *data, t_line *line);
 void		cast_ray(
 				t_ray *ray, t_player *player, t_camera *camera, char **map);
 
