@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/20 15:03:15 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/22 16:14:14 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/01/22 19:00:34 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,17 @@ static int	get_resolution(t_display *display)
 
 static int	init_renderer(t_display *display)
 {
-	if (get_resolution(display) != SUCCESS)
+	if (LIMIT_RESOLUTION == true)
 	{
-		return (FAILURE);
+		display->width = 1920;
+		display->height = 1080;
+	}
+	else
+	{
+		if (get_resolution(display) != SUCCESS)
+		{
+			return (FAILURE);
+		}
 	}
 	display->renderer = mlx_init(display->width,
 			display->height, "Cub3D", false);
@@ -86,12 +94,7 @@ static int	init_textures(t_display *display, char **texture_paths)
 		{
 			return (FAILURE);
 		}
-		display->textures[i] = mlx_texture_to_image(display->renderer, texture);
-		mlx_delete_texture(texture);
-		if (!display->textures[i])
-		{
-			return (FAILURE);
-		}
+		display -> textures[i] = texture;
 		i++;
 	}
 	return (SUCCESS);
