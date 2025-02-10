@@ -6,12 +6,13 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 21:50:19 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/02/10 11:30:27 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/02/10 16:06:19 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
 #include <stdlib.h>
+#define OFFSET 0.02
 
 static t_player	*init_player(int player_x, int player_y)
 {
@@ -22,8 +23,8 @@ static t_player	*init_player(int player_x, int player_y)
 	{
 		return (NULL);
 	}
-	player->pos_x = player_x;
-	player->pos_y = player_y;
+	player->pos_x = player_x + OFFSET;
+	player->pos_y = player_y + OFFSET;
 	return (player);
 }
 
@@ -95,7 +96,7 @@ int	init_data(t_data *game, char *map_file)
 	game->map = create_map(map_file);
 	if (!game->map)
 		return (FAILURE);
-	game->player = init_player(3, 4);
+	game->player = init_player(1, 1);
 	if (!game->player)
 		return (FAILURE);
 	game->camera = init_camera(0, 1);
