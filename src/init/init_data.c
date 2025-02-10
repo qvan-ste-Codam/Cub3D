@@ -6,13 +6,12 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 21:50:19 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/02/10 16:06:19 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/02/10 16:38:54 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
 #include <stdlib.h>
-#define OFFSET 0.02
 
 static t_player	*init_player(int player_x, int player_y)
 {
@@ -23,8 +22,8 @@ static t_player	*init_player(int player_x, int player_y)
 	{
 		return (NULL);
 	}
-	player->pos_x = player_x + OFFSET;
-	player->pos_y = player_y + OFFSET;
+	player->pos_x = player_x + 0.5;
+	player->pos_y = player_y + 0.5;
 	return (player);
 }
 
@@ -70,13 +69,8 @@ static t_camera	*init_camera(int view_direction_x, int view_direction_y)
 		direction = EAST;
 	else if (view_direction_x == 0 && view_direction_y == -1)
 		direction = NORTH;
-	else if (view_direction_x == 0 && view_direction_y == 1)
-		direction = SOUTH;
 	else
-	{
-		free (camera);
-		return (NULL);
-	}
+		direction = SOUTH;
 	set_view_direction(direction, camera);
 	return (camera);
 }
@@ -96,7 +90,7 @@ int	init_data(t_data *game, char *map_file)
 	game->map = create_map(map_file);
 	if (!game->map)
 		return (FAILURE);
-	game->player = init_player(1, 1);
+	game->player = init_player(9, 4);
 	if (!game->player)
 		return (FAILURE);
 	game->camera = init_camera(0, 1);
