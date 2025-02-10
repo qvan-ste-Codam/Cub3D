@@ -6,12 +6,11 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/17 17:19:48 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/02/10 16:34:52 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/02/10 16:41:19 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
-#include <stdio.h>
 
 static void	attempt_move_player(
 	t_data *data, double new_pos_x, double new_pos_y)
@@ -19,7 +18,6 @@ static void	attempt_move_player(
 	t_player	*player;
 
 	player = data->player;
-	printf("old: %f %f, new: %i %i\n", player->pos_x, player->pos_y, (int)new_pos_x, (int)new_pos_y);
 	if (data->map[(int)new_pos_x][(int)player->pos_y] != '1')
 	{
 		player->pos_x = new_pos_x;
