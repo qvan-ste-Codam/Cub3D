@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_extra.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 16:12:48 by qvan-ste          #+#    #+#             */
-/*   Updated: 2025/02/11 15:35:07 by tgoossen         ###   ########.fr       */
+/*   Created: 2025/02/10 16:30:31 by tgoossen          #+#    #+#             */
+/*   Updated: 2025/02/10 16:44:22 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
-#include "../libs/libft/include/libft.h"
+#include "../../include/cub3D.h"
+#include <stdlib.h>
+#define OFFSET 0.5
 
-int	main(int argc, char **argv)
+t_player	*init_player(int player_x, int player_y)
 {
-	t_data			data;
+	t_player	*player;
 
-	ft_bzero(&data, sizeof(t_data));
-	if (validate_input(argc, argv) != SUCCESS)
+	player = malloc(sizeof(t_player));
+	if (!player)
 	{
-		return (FAILURE);
+		return (NULL);
 	}
-	if (init_data(&data, argv[1]) != SUCCESS)
-	{
-		free_data(data);
-		return (FAILURE);
-	}
-	execute(&data);
-	free_data(data);
+	player->pos_x = player_x + OFFSET;
+	player->pos_y = player_y + OFFSET;
+	return (player);
 }

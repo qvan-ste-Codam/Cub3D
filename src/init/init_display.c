@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   init_display.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/01/20 15:03:15 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/22 19:00:34 by qvan-ste      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   init_display.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/20 15:03:15 by qvan-ste          #+#    #+#             */
+/*   Updated: 2025/02/12 13:28:12 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static int	init_renderer(t_display *display)
 			return (FAILURE);
 		}
 	}
-	display->renderer = mlx_init(display->width,
-			display->height, "Cub3D", false);
-	if (!display -> renderer)
+	display->renderer = mlx_init(display->width, display->height, "Cub3D",
+			false);
+	if (!display->renderer)
 	{
 		return (FAILURE);
 	}
@@ -87,21 +87,20 @@ static int	init_textures(t_display *display, char **texture_paths)
 	mlx_texture_t	*texture;
 
 	i = 0;
-	while (texture_paths[i])
+	while (i < NUM_OF_TEXTURES)
 	{
 		texture = mlx_load_png(texture_paths[i]);
 		if (!texture)
 		{
 			return (FAILURE);
 		}
-		display -> textures[i] = texture;
+		display->textures[i] = texture;
 		i++;
 	}
 	return (SUCCESS);
 }
 
-t_display	*init_display(
-		char **texture_paths, int *rgb_floor, int *rgb_ceiling)
+t_display	*init_display(t_parse_data *parse_data)
 {
 	t_display	*display;
 
@@ -111,15 +110,15 @@ t_display	*init_display(
 	ft_bzero(display, sizeof(t_display));
 	if (init_renderer(display) != SUCCESS)
 		return (NULL);
-	if (init_textures(display, texture_paths) != SUCCESS)
+	if (init_textures(display, parse_data->texture_paths) != SUCCESS)
 		return (NULL);
 	display->lines = init_lines(display->width);
-	if (!display -> lines)
+	if (!display->lines)
 		return (NULL);
-	display->floor_color
-		= rgba_to_int(rgb_floor[R], rgb_floor[G], rgb_floor[B], 255);
-	display->ceiling_color
-		= rgba_to_int(rgb_ceiling[R], rgb_ceiling[G], rgb_ceiling[B], 255);
+	display->floor_color = rgba_to_int(parse_data->floor_color[R],
+			parse_data->floor_color[G], parse_data->floor_color[B], 255);
+	display->ceiling_color = rgba_to_int(parse_data->ceiling_color[R],
+			parse_data->ceiling_color[G], parse_data->ceiling_color[B], 255);
 	display->should_rerender = true;
 	return (display);
 }
