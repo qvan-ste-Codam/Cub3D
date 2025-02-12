@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 21:50:19 by qvan-ste          #+#    #+#             */
-/*   Updated: 2025/02/12 14:28:21 by tgoossen         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:07:33 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,6 @@
 #include <stdlib.h>
 
 static void	set_camera_plane(int direction, t_camera *camera)
-static t_player	*init_player(int player_x, int player_y)
-{
-	t_player	*player;
-
-	player = malloc(sizeof(t_player));
-	if (!player)
-	{
-		return (NULL);
-	}
-	player->pos_x = player_x + 0.5;
-	player->pos_y = player_y + 0.5;
-	return (player);
-}
-
-static void	set_view_direction(int direction, t_camera	*camera)
 {
 	if (direction == NORTH)
 	{
@@ -88,17 +73,6 @@ static t_camera	*init_camera(t_parse_data *parse_data)
 	}
 	set_view_direction(parse_data->view_direction, camera);
 	set_camera_plane(parse_data->view_direction, camera);
-	camera->view_dir_x = view_direction_x;
-	camera->view_dir_y = view_direction_y;
-	if (view_direction_x == -1 && view_direction_y == 0)
-		direction = WEST;
-	else if (view_direction_x == 1 && view_direction_y == 0)
-		direction = EAST;
-	else if (view_direction_x == 0 && view_direction_y == -1)
-		direction = NORTH;
-	else
-		direction = SOUTH;
-	set_view_direction(direction, camera);
 	return (camera);
 }
 
@@ -123,7 +97,6 @@ int	init_data(t_data *game, char *map_file)
 	init_texture_paths(parse_data);
 	game->player = init_player(parse_data->start_pos_x,
 			parse_data->start_pos_y);
-	game->player = init_player(9, 4);
 	if (!game->player)
 		return (FAILURE);
 	game->camera = init_camera(parse_data);
