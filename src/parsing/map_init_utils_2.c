@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 14:30:00 by tgoossen          #+#    #+#             */
-/*   Updated: 2025/02/11 15:19:34 by tgoossen         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:32:41 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*map_zero_fill(int length)
 	line = (char *)malloc((length + 1) * sizeof(char));
 	if (!line)
 	{
-		perror("Malloc failed");
+		ft_printf_fd(2, "Error\nMalloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 	i = 0;
@@ -63,7 +63,7 @@ char	*allocate_and_fill_line(char *old_line, int length)
 	new_line = (char *)malloc((length + 1) * sizeof(char));
 	if (new_line == NULL)
 	{
-		perror("Malloc failed");
+		ft_printf_fd(2, "Error\nMalloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 	new_line[0] = ' ';
@@ -90,7 +90,7 @@ char	**allocate_new_map(int height, int length)
 	newmap = (char **)malloc((height + 3) * sizeof(char *));
 	if (newmap == NULL)
 	{
-		perror("Malloc failed");
+		ft_printf_fd(2, "Error\nMalloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 	newmap[0] = map_zero_fill(length);
