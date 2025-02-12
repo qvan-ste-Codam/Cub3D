@@ -61,7 +61,6 @@ void	free_data(t_data game)
 		free(game.display);
 	}
 }
-
 int	free_init(t_parse_data *parse_data)
 {
 	ft_free_matrix(parse_data->input_file);
