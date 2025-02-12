@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:39:32 by tgoossen          #+#    #+#             */
-/*   Updated: 2025/02/12 14:11:37 by tgoossen         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:51:10 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,18 @@ int	is_valid_map_char(char c)
 {
 	return (c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'E' || c == 'W'
 		|| c == ' ' || c == '\t');
+}
+
+void	ft_set_null(t_parse_data *map_data)
+{
+	map_data->ea_texture = NULL;
+	map_data->no_texture = NULL;
+	map_data->we_texture = NULL;
+	map_data->so_texture = NULL;
+	map_data->floor_color[0] = 0;
+	map_data->floor_color[1] = 0;
+	map_data->floor_color[2] = 0;
+	map_data->ceiling_color[0] = 0;
+	map_data->ceiling_color[1] = 0;
+	map_data->ceiling_color[2] = 0;
 }

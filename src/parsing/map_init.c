@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 14:28:05 by tgoossen          #+#    #+#             */
-/*   Updated: 2025/02/11 15:13:39 by tgoossen         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:33:10 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	check_map(t_parse_data *map_data)
 		return (1);
 	if (is_surrounded_by_walls(map_data->input_file + i, map_height) != SUCCESS)
 	{
-		printf("Map is not surrounded by walls\n");
+		ft_printf_fd(2, "Error\nMap is not surrounded by walls\n");
 		return (1);
 	}
 	return (SUCCESS);

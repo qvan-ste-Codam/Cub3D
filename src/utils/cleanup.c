@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:35:12 by qvan-ste          #+#    #+#             */
-/*   Updated: 2025/02/12 14:09:21 by tgoossen         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:39:38 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,10 @@ void	free_data(t_data game)
 	}
 }
 
-void	free_init(t_parse_data *parse_data)
+int	free_init(t_parse_data *parse_data)
 {
 	ft_free_matrix(parse_data->input_file);
 	free_textures(parse_data);
 	free(parse_data);
+	return (FAILURE);
 }

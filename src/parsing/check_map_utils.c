@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:42 by tgoossen          #+#    #+#             */
-/*   Updated: 2025/02/11 15:18:50 by tgoossen         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:51:05 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@
 
 int	init_floor_ceiling(char *line, int *color)
 {
+	if (color[0] != 0 || color[1] != 0 || color[2] != 0)
+	{
+		ft_printf_fd(2, "Error\n double path: %s\n", line);
+		return (1);
+	}
 	if (parse_color(line, color) != SUCCESS)
 	{
 		ft_printf_fd(2, "Error\nInvalid floor/ceiling color\n");
