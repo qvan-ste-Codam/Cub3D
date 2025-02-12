@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:29:30 by qvan-ste          #+#    #+#             */
-/*   Updated: 2025/02/11 15:14:47 by tgoossen         ###   ########.fr       */
+/*   Updated: 2025/02/12 13:50:50 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	**allocate_map(t_parse_data *parse_data, int map_size)
 		i++;
 	while (parse_data->input_file[i])
 	{
-		map[j] = parse_data->input_file[i];
+		map[j] = ft_strdup(parse_data->input_file[i]);
 		i++;
 		j++;
 	}

@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:35:12 by qvan-ste          #+#    #+#             */
-/*   Updated: 2025/02/11 15:34:56 by tgoossen         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:09:21 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,21 @@ void	free_data(t_data game)
 		free(game.camera);
 	if (game.display)
 	{
+		mlx_delete_texture(game.display->textures[NORTH]);
+		mlx_delete_texture(game.display->textures[SOUTH]);
+		mlx_delete_texture(game.display->textures[EAST]);
+		mlx_delete_texture(game.display->textures[WEST]);
 		if (game.display->lines)
 		{
 			free_lines(game.display);
 		}
 		free(game.display);
 	}
+}
+
+void	free_init(t_parse_data *parse_data)
+{
+	ft_free_matrix(parse_data->input_file);
+	free_textures(parse_data);
+	free(parse_data);
 }

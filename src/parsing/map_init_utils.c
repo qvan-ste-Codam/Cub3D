@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 14:28:46 by tgoossen          #+#    #+#             */
-/*   Updated: 2025/02/11 15:17:32 by tgoossen         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:11:59 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@ int	check_i_map(char **map)
 	while (map[i] && is_not_map(map[i]))
 		i++;
 	return (i);
-}
-
-int	is_valid_map_char(char c)
-{
-	return (c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'E' || c == 'W'
-		|| c == ' ' || c == '\t');
 }
 
 void	cam_xy(int y, int x, char var, t_parse_data *map_data)
@@ -54,14 +48,12 @@ void	cam_xy(int y, int x, char var, t_parse_data *map_data)
 	}
 }
 
-int	has_valid_starting_position(char **map, int map_height,
-		t_parse_data *map_data)
+int	count_starting_positions(char **map, int map_height, t_parse_data *map_data)
 {
 	int	x;
 	int	y;
 	int	start_count;
 
-	x = 0;
 	y = 0;
 	start_count = 0;
 	while (y < map_height)
@@ -75,13 +67,23 @@ int	has_valid_starting_position(char **map, int map_height,
 				cam_xy(x, y, map[y][x], map_data);
 				start_count++;
 			}
-			if (start_count > 1)
-				return (1);
 			x++;
 		}
 		y++;
 	}
-	return (SUCCESS);
+	return (start_count);
+}
+
+int	has_valid_starting_position(char **map, int map_height,
+		t_parse_data *map_data)
+{
+	int	start_count;
+
+	start_count = count_starting_positions(map, map_height, map_data);
+	if (start_count == 1)
+		return (SUCCESS);
+	else
+		return (1);
 }
 
 int	check_valid_char(char **map, int map_height, int i)

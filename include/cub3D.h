@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 17:18:48 by qvan-ste          #+#    #+#             */
-/*   Updated: 2025/02/11 14:31:37 by tgoossen         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:11:24 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,12 +163,12 @@ void				free_textures(t_parse_data *map_data);
 int					parse_color(char *line, int *color);
 int					check_i_map(char **map);
 int					is_valid_map_char(char c);
-void	cam_xy(int y, int x, char var, t_parse_data *map_data);
-int	has_valid_starting_position(char **map, int map_height,
-		t_parse_data *map_data);
-		int	check_valid_char(char **map, int map_height, int i);
-		int	longest_line(char **map);
-char	**fill_map(char **oldmap, int height);
+void				cam_xy(int y, int x, char var, t_parse_data *map_data);
+int					has_valid_starting_position(char **map, int map_height,
+						t_parse_data *map_data);
+int					check_valid_char(char **map, int map_height, int i);
+int					longest_line(char **map);
+char				**fill_map(char **oldmap, int height);
 
 // Utils
 int					validate_input(int argc, char **argv);
@@ -176,7 +176,9 @@ void				free_data(t_data data);
 int					rgba_to_int(int r, int g, int b, int a);
 int					get_pixel_color(mlx_texture_t *texture, uint32_t x_pos,
 						uint32_t y_pos);
-// Init
+void				free_init(t_parse_data *parse_data);
+
+	// Init
 int					init_data(t_data *game, char *map_file);
 t_display			*init_display(t_parse_data *parse_data);
 

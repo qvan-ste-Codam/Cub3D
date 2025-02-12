@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:39:32 by tgoossen          #+#    #+#             */
-/*   Updated: 2025/02/11 15:15:25 by tgoossen         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:11:37 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,10 @@ int	is_not_map(char *line)
 		i++;
 	}
 	return (0);
+}
+
+int	is_valid_map_char(char c)
+{
+	return (c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'E' || c == 'W'
+		|| c == ' ' || c == '\t');
 }
