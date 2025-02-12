@@ -6,7 +6,7 @@
 /*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:23:13 by tgoossen          #+#    #+#             */
-/*   Updated: 2025/02/12 16:46:59 by tgoossen         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:52:22 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	init_path(char *line, char **texture)
 	if (*texture == NULL)
 		return (0);
 	len = ft_strlen(*texture);
-	if (len < 4 || strcmp(*texture + len - 4, ".png") != 0)
+	if (len < 4 || ft_strcmp(*texture + len - 4, ".png") != 0)
 	{
 		free(*texture);
 		*texture = NULL;
