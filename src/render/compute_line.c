@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 19:16:00 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/22 18:58:55 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/02/12 16:58:45 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ static void	determine_wall_direction(t_line *line, t_ray *ray)
 	if (ray->side == VERTICAL)
 	{
 		if (ray->dir_x > 0)
-			line->dir = EAST;
+			line->dir = SOUTH;
 		else
-			line->dir = WEST;
+			line->dir = NORTH;
 	}
 	else
 	{
 		if (ray->dir_y > 0)
-			line->dir = SOUTH;
+			line->dir = EAST;
 		else
-			line->dir = NORTH;
+			line->dir = WEST;
 	}
 }
 

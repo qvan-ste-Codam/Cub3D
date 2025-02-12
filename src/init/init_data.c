@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_data.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 21:50:19 by qvan-ste          #+#    #+#             */
-/*   Updated: 2025/02/12 16:49:24 by tgoossen         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   init_data.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tgoossen <tgoossen@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/01/15 21:50:19 by qvan-ste      #+#    #+#                 */
+/*   Updated: 2025/02/12 17:03:19 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
-#include "../../libs/libft/include/libft.h"
 #include <stdlib.h>
 
 static void	set_camera_plane(int direction, t_camera *camera)
