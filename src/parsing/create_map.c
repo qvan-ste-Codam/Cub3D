@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   create_map.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 17:29:30 by qvan-ste          #+#    #+#             */
-/*   Updated: 2025/02/12 13:50:50 by tgoossen         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   create_map.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tgoossen <tgoossen@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/01/06 17:29:30 by qvan-ste      #+#    #+#                 */
+/*   Updated: 2025/02/12 17:03:40 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
 #include "../../libs/libft/include/libft.h"
-#include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
