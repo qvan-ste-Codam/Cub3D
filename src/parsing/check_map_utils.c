@@ -18,6 +18,11 @@
 
 int	init_floor_ceiling(char *line, int *color)
 {
+	if (color[0] != 0 || color[1] != 0 || color[2] != 0)
+	{
+		ft_printf_fd(2, "Error\n double path: %s\n", line);
+		return (1);
+	}
 	if (parse_color(line, color) != SUCCESS)
 	{
 		ft_printf_fd(2, "Error\nInvalid floor/ceiling color\n");

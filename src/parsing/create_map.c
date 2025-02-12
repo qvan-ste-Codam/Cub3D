@@ -89,12 +89,12 @@ char	**create_map(char *file, t_parse_data *parse_data)
 	map_fd = open(file, O_RDONLY);
 	if (map_fd == -1)
 	{
-		perror("Cub3D");
+		ft_printf_fd(2, "Error\nOpen map\n");
 		return (NULL);
 	}
 	if (create_map_vector(&map_vector, map_fd) == FAILURE)
 	{
-		perror("Cub3D");
+		ft_printf_fd(2, "Error\nCreate map\n");
 		close(map_fd);
 		return (NULL);
 	}

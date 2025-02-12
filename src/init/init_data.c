@@ -88,22 +88,24 @@ int	init_data(t_data *game, char *map_file)
 	t_parse_data	*parse_data;
 
 	parse_data = malloc(sizeof(t_parse_data));
+	if (!parse_data)
+		return (FAILURE);
 	game->map = create_map(map_file, parse_data);
 	if (!game->map)
 		return (FAILURE);
 	if (init_parse_data(parse_data) != SUCCESS)
-		return (FAILURE);
+		return (free_init(parse_data));
 	init_texture_paths(parse_data);
 	game->player = init_player(parse_data->start_pos_x,
 			parse_data->start_pos_y);
 	if (!game->player)
-		return (FAILURE);
+		return (free_init(parse_data));
 	game->camera = init_camera(parse_data);
 	if (!game->camera)
-		return (FAILURE);
+		return (free_init(parse_data));
 	game->display = init_display(parse_data);
 	if (!game->display)
-		return (FAILURE);
+		return (free_init(parse_data));
 	free_init(parse_data);
 	return (SUCCESS);
 }
