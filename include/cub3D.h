@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 17:18:48 by qvan-ste          #+#    #+#             */
-/*   Updated: 2025/02/12 16:47:20 by tgoossen         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   cub3D.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tgoossen <tgoossen@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/01/06 17:18:48 by qvan-ste      #+#    #+#                 */
+/*   Updated: 2025/02/14 15:30:15 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,6 @@ typedef struct s_data
 typedef struct s_parse_data
 {
 	char			**input_file;
-	char			*no_texture;
-	char			*so_texture;
-	char			*we_texture;
-	char			*ea_texture;
 	int				floor_color[3];
 	int				ceiling_color[3];
 	int				start_pos_x;
@@ -177,9 +173,10 @@ void				free_data(t_data data);
 int					rgba_to_int(int r, int g, int b, int a);
 int					get_pixel_color(mlx_texture_t *texture, uint32_t x_pos,
 						uint32_t y_pos);
-int					free_init(t_parse_data *parse_data);
+int					free_parse_data(t_parse_data *parse_data);
+void				*error_free_display(t_display *display);
 
-	// Init
+// Init
 int					init_data(t_data *game, char *map_file);
 t_display			*init_display(t_parse_data *parse_data);
 

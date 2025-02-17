@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   init_display.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 15:03:15 by qvan-ste          #+#    #+#             */
-/*   Updated: 2025/02/12 13:28:12 by tgoossen         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   init_display.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tgoossen <tgoossen@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/01/20 15:03:15 by qvan-ste      #+#    #+#                 */
+/*   Updated: 2025/02/14 15:31:57 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ static int	init_textures(t_display *display, char **texture_paths)
 		texture = mlx_load_png(texture_paths[i]);
 		if (!texture)
 		{
+			while (i > 0)
+				mlx_delete_texture(display->textures[--i]);
 			return (FAILURE);
 		}
 		display->textures[i] = texture;
@@ -104,17 +106,16 @@ t_display	*init_display(t_parse_data *parse_data)
 {
 	t_display	*display;
 
-	display = malloc(sizeof(t_display));
+	display = ft_calloc(1, sizeof(t_display));
 	if (!display)
 		return (NULL);
-	ft_bzero(display, sizeof(t_display));
 	if (init_renderer(display) != SUCCESS)
-		return (NULL);
+		return (error_free_display(display));
 	if (init_textures(display, parse_data->texture_paths) != SUCCESS)
-		return (NULL);
+		return (error_free_display(display));
 	display->lines = init_lines(display->width);
 	if (!display->lines)
-		return (NULL);
+		return (error_free_display(display));
 	display->floor_color = rgba_to_int(parse_data->floor_color[R],
 			parse_data->floor_color[G], parse_data->floor_color[B], 255);
 	display->ceiling_color = rgba_to_int(parse_data->ceiling_color[R],

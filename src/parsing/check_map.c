@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   check_map.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: tgoossen <tgoossen@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/02/10 16:23:13 by tgoossen      #+#    #+#                 */
-/*   Updated: 2025/02/12 17:03:36 by qvan-ste      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   check_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 16:23:13 by tgoossen          #+#    #+#             */
+/*   Updated: 2025/02/17 13:35:30 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	init_path(char *line, char **texture)
 
 	if (*texture != NULL)
 	{
-		ft_printf_fd(2, "Error\n double path: %s\n", line);
+		ft_printf_fd(2, "Error\nDouble path: %s\n", line);
 		return (1);
 	}
 	while (*line && *line != ' ')
@@ -37,7 +37,7 @@ int	init_path(char *line, char **texture)
 	{
 		free(*texture);
 		*texture = NULL;
-		ft_printf_fd(2, "Error\n incorrect texture format: %s\n", line);
+		ft_printf_fd(2, "Error\nIncorrect texture format: %s\n", line);
 		return (1);
 	}
 	return (SUCCESS);
@@ -98,10 +98,10 @@ int	parse_color(char *line, int *color)
 
 int	init_parse_data(t_parse_data *map_data)
 {
-	ft_set_null(map_data);
+	map_data->ceiling_color[0] = -1;
+	map_data->floor_color[0] = -1;
 	if (init_texpath(map_data->input_file, map_data) != SUCCESS)
 	{
-		ft_printf_fd(2, "Error\nInvalid texture path\n");
 		return (1);
 	}
 	if (check_if_init(map_data) != SUCCESS)
@@ -113,7 +113,6 @@ int	init_parse_data(t_parse_data *map_data)
 	if (check_map(map_data) != SUCCESS)
 	{
 		ft_printf_fd(2, "Error\nmap not valid\n");
-		free_textures(map_data);
 		return (1);
 	}
 	return (SUCCESS);

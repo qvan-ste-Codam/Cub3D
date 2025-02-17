@@ -1,19 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   map_init.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 14:28:05 by tgoossen          #+#    #+#             */
-/*   Updated: 2025/02/12 16:33:10 by tgoossen         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   map_init.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tgoossen <tgoossen@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/02/11 14:28:05 by tgoossen      #+#    #+#                 */
+/*   Updated: 2025/02/14 13:19:26 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
 #include "../../libs/libft/include/libft.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 int	is_enclosed_zero(char **map, int i, int j, int map_size[2])

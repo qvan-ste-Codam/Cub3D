@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   check_map_utils.c                                  :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: tgoossen <tgoossen@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/02/10 16:35:42 by tgoossen      #+#    #+#                 */
-/*   Updated: 2025/02/12 17:03:22 by qvan-ste      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   check_map_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 16:35:42 by tgoossen          #+#    #+#             */
+/*   Updated: 2025/02/17 13:39:59 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 int	init_floor_ceiling(char *line, int *color)
 {
-	if (color[0] != 0 || color[1] != 0 || color[2] != 0)
+	if (color[0] != -1)
 	{
-		ft_printf_fd(2, "Error\n double path: %s\n", line);
+		ft_printf_fd(2, "Error\nDouble path: %s\n", line);
 		return (1);
 	}
 	if (parse_color(line, color) != SUCCESS)
@@ -34,17 +34,17 @@ int	init_floor_ceiling(char *line, int *color)
 int	init_texture(char *line, t_parse_data *map_data)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
-		return (init_path(line, &map_data->no_texture));
+		return (init_path(line, &map_data->texture_paths[NORTH]));
 	else if (ft_strncmp(line, "SO ", 3) == 0)
-		return (init_path(line, &map_data->so_texture));
+		return (init_path(line, &map_data->texture_paths[SOUTH]));
 	else if (ft_strncmp(line, "WE ", 3) == 0)
-		return (init_path(line, &map_data->we_texture));
+		return (init_path(line, &map_data->texture_paths[WEST]));
 	else if (ft_strncmp(line, "EA ", 3) == 0)
-		return (init_path(line, &map_data->ea_texture));
+		return (init_path(line, &map_data->texture_paths[EAST]));
 	if (ft_strncmp(line, "F ", 2) == 0)
-		return (init_floor_ceiling(line, map_data->ceiling_color));
-	else if (ft_strncmp(line, "C ", 2) == 0)
 		return (init_floor_ceiling(line, map_data->floor_color));
+	else if (ft_strncmp(line, "C ", 2) == 0)
+		return (init_floor_ceiling(line, map_data->ceiling_color));
 	return (SUCCESS);
 }
 
@@ -64,21 +64,24 @@ int	init_texpath(char **map, t_parse_data *map_data)
 
 int	check_if_init(t_parse_data *map_data)
 {
-	if (map_data->no_texture == NULL || map_data->so_texture == NULL
-		|| map_data->we_texture == NULL || map_data->ea_texture == NULL
-		|| !map_data->floor_color[0] || !map_data->ceiling_color[0])
+	if (map_data->texture_paths[NORTH] == NULL
+		|| map_data->texture_paths[SOUTH] == NULL
+		|| map_data->texture_paths[WEST] == NULL
+		|| map_data->texture_paths[EAST] == NULL
+		|| map_data->floor_color[0] == -1
+		|| map_data->ceiling_color[0] == -1)
 		return (1);
 	return (SUCCESS);
 }
 
 void	free_textures(t_parse_data *map_data)
 {
-	if (map_data->ea_texture)
-		free(map_data->ea_texture);
-	if (map_data->no_texture)
-		free(map_data->no_texture);
-	if (map_data->we_texture)
-		free(map_data->we_texture);
-	if (map_data->so_texture)
-		free(map_data->so_texture);
+	if (map_data->texture_paths[NORTH])
+		free(map_data->texture_paths[NORTH]);
+	if (map_data->texture_paths[SOUTH])
+		free(map_data->texture_paths[SOUTH]);
+	if (map_data->texture_paths[WEST])
+		free(map_data->texture_paths[WEST]);
+	if (map_data->texture_paths[EAST])
+		free(map_data->texture_paths[EAST]);
 }
