@@ -17,7 +17,7 @@ LIBFT = $(LIBFT_FOLDER)/libft.a
 
 LFILES = $(LIBFT) $(MLX42)
 
-CFLAGS = -Wall -Werror -Wextra -O2 -g
+CFLAGS = -Wall -Werror -Wextra
 
 LDFLAGS = -ldl -lglfw -pthread -lm
 
@@ -59,4 +59,10 @@ re: fclean all
 fps: CFLAGS += -DLIMIT_RESOLUTION=true
 fps: re
 
-.PHONY:  all clean fclean re .c.o fps
+speed: CFLAGS += -O3
+speed: re
+
+debug: CFLAGS += -g -fsanitize=address
+debug: re
+
+.PHONY:  all clean fclean re .c.o fps speed debug

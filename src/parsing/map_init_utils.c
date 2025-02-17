@@ -1,20 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   map_init_utils.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 14:28:46 by tgoossen          #+#    #+#             */
-/*   Updated: 2025/02/12 14:11:59 by tgoossen         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   map_init_utils.c                                   :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tgoossen <tgoossen@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/02/11 14:28:46 by tgoossen      #+#    #+#                 */
+/*   Updated: 2025/02/14 15:23:50 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
-#include "../../libs/libft/include/libft.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 int	check_i_map(char **map)
 {

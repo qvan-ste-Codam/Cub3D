@@ -6,11 +6,12 @@
 /*   By: tgoossen <tgoossen@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 21:50:19 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/02/12 17:03:19 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/02/14 13:57:29 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3D.h"
+#include "../../libs/libft/include/libft.h"
 #include <stdlib.h>
 
 static void	set_camera_plane(int direction, t_camera *camera)
@@ -75,37 +76,28 @@ static t_camera	*init_camera(t_parse_data *parse_data)
 	return (camera);
 }
 
-static void	init_texture_paths(t_parse_data *map_data)
-{
-	map_data->texture_paths[NORTH] = map_data->no_texture;
-	map_data->texture_paths[SOUTH] = map_data->so_texture;
-	map_data->texture_paths[WEST] = map_data->we_texture;
-	map_data->texture_paths[EAST] = map_data->ea_texture;
-}
-
 int	init_data(t_data *game, char *map_file)
 {
 	t_parse_data	*parse_data;
 
-	parse_data = malloc(sizeof(t_parse_data));
+	parse_data = ft_calloc(1, sizeof(t_parse_data));
 	if (!parse_data)
 		return (FAILURE);
 	game->map = create_map(map_file, parse_data);
 	if (!game->map)
-		return (FAILURE);
+		return (free_parse_data(parse_data));
 	if (init_parse_data(parse_data) != SUCCESS)
-		return (free_init(parse_data));
-	init_texture_paths(parse_data);
+		return (free_parse_data(parse_data));
 	game->player = init_player(parse_data->start_pos_x,
 			parse_data->start_pos_y);
 	if (!game->player)
-		return (free_init(parse_data));
+		return (free_parse_data(parse_data));
 	game->camera = init_camera(parse_data);
 	if (!game->camera)
-		return (free_init(parse_data));
+		return (free_parse_data(parse_data));
 	game->display = init_display(parse_data);
 	if (!game->display)
-		return (free_init(parse_data));
-	free_init(parse_data);
+		return (free_parse_data(parse_data));
+	free_parse_data(parse_data);
 	return (SUCCESS);
 }

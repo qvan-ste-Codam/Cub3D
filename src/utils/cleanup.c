@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 17:35:12 by qvan-ste          #+#    #+#             */
-/*   Updated: 2025/02/12 16:39:38 by tgoossen         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   cleanup.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: tgoossen <tgoossen@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2025/01/06 17:35:12 by qvan-ste      #+#    #+#                 */
+/*   Updated: 2025/02/14 15:30:27 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,22 @@ void	free_data(t_data game)
 		free(game.display);
 	}
 }
-int	free_init(t_parse_data *parse_data)
+
+void	*error_free_display(t_display *display)
 {
-	ft_free_matrix(parse_data->input_file);
+	if (display -> lines)
+	{
+		free_lines(display);
+	}
+	free (display);
+	display = NULL;
+	return (NULL);
+}
+
+int	free_parse_data(t_parse_data *parse_data)
+{
+	if (parse_data->input_file)
+		ft_free_matrix(parse_data->input_file);
 	free_textures(parse_data);
 	free(parse_data);
 	return (FAILURE);

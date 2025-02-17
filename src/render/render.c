@@ -6,7 +6,7 @@
 /*   By: qvan-ste <qvan-ste@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/01/15 18:35:28 by qvan-ste      #+#    #+#                 */
-/*   Updated: 2025/01/22 18:22:16 by qvan-ste      ########   odam.nl         */
+/*   Updated: 2025/02/14 15:29:01 by qvan-ste      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ static void	render_line(t_display *display, t_line *line)
 	while (y < line->draw_start)
 	{
 		mlx_put_pixel(display->frame, line->screen_pos_x,
-			y, display->floor_color);
+			y, display->ceiling_color);
 		y++;
 	}
 	render_wall(display->frame, line, line->texture_props, display->height);
 	y = line->draw_end;
-	while (y < display->height)
+	while (y < display->height - 1)
 	{
 		mlx_put_pixel(display->frame, line->screen_pos_x,
-			y, display->ceiling_color);
+			y, display->floor_color);
 		y++;
 	}
 }
