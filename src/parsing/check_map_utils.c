@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   check_map_utils.c                                  :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: tgoossen <tgoossen@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/02/10 16:35:42 by tgoossen      #+#    #+#                 */
-/*   Updated: 2025/02/14 15:31:12 by qvan-ste      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   check_map_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 16:35:42 by tgoossen          #+#    #+#             */
+/*   Updated: 2025/02/17 13:39:59 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int	init_floor_ceiling(char *line, int *color)
 {
-	if (color[0] != 0 || color[1] != 0 || color[2] != 0)
+	if (color[0] != -1)
 	{
 		ft_printf_fd(2, "Error\nDouble path: %s\n", line);
 		return (1);
@@ -68,8 +68,8 @@ int	check_if_init(t_parse_data *map_data)
 		|| map_data->texture_paths[SOUTH] == NULL
 		|| map_data->texture_paths[WEST] == NULL
 		|| map_data->texture_paths[EAST] == NULL
-		|| !map_data->floor_color[0]
-		|| !map_data->ceiling_color[0])
+		|| map_data->floor_color[0] == -1
+		|| map_data->ceiling_color[0] == -1)
 		return (1);
 	return (SUCCESS);
 }

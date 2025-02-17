@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   check_map.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: tgoossen <tgoossen@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2025/02/10 16:23:13 by tgoossen      #+#    #+#                 */
-/*   Updated: 2025/02/14 13:40:28 by qvan-ste      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   check_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tgoossen <tgoossen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/10 16:23:13 by tgoossen          #+#    #+#             */
+/*   Updated: 2025/02/17 13:35:30 by tgoossen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int	parse_color(char *line, int *color)
 
 int	init_parse_data(t_parse_data *map_data)
 {
+	map_data->ceiling_color[0] = -1;
+	map_data->floor_color[0] = -1;
 	if (init_texpath(map_data->input_file, map_data) != SUCCESS)
 	{
 		return (1);
